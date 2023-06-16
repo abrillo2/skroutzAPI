@@ -65,7 +65,7 @@ public class UpdateGitRepo {
     public void pushToRepo() throws IOException, URISyntaxException, GitAPIException{
            
            
-            /*Git git = Git.open(new File(repoDir)); 
+            Git git = Git.open(new File(repoDir)); 
             
             git.add().addFilepattern(".").call();
             git.commit().setMessage("product list "+new Date()).call();
@@ -89,7 +89,7 @@ public class UpdateGitRepo {
                     + "<br/>"+UpdateXMLDistributorGui.loadingText.getText()+"</html>");
             
             git.getRepository().close();
-            git.close();*/
+            git.close();
            
             
            

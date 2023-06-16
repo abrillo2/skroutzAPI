@@ -307,6 +307,11 @@ public class PrepareDistributorData {
             nMpn = nMpn !=null?nMpn:"";
             nDistributor = nDistributor !=null?nDistributor:"";
             
+            //dont update ns products
+            if(nDistributor.trim().equalsIgnoreCase("ns")){
+                continue;
+            }
+            
             totalProduct++;
             
             UpdateXMLDistributorGui.loadingText.setText("Updating Stock, product ean:"+nEan);
