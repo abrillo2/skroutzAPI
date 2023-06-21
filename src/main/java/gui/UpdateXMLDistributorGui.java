@@ -49,6 +49,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.SwingUtilities;
 import javax.xml.transform.TransformerConfigurationException;
+import static prepareBigBuy.ScrapBigBuy.scrapAllTargetList;
 import scrapData.ScrapSkroutz;
 
 
@@ -62,6 +63,7 @@ public class UpdateXMLDistributorGui extends JPanel{
     public static String chromeDriverFolder;
     public static String mainDir;
     public static String nsUrl;//"https://abrillo2.github.io/ninjaStore/productList.xml";
+    private static String sracpBigBuyFilePath;
     
     public static String sracpFilePath;
     public static int scrapWindowSize=5;
@@ -71,7 +73,7 @@ public class UpdateXMLDistributorGui extends JPanel{
     //input labels
     public final String[] inputKeys = {"Select WWT distributor xml","Select Mobiparts distributor Excel file","Select XTG Excel"};
     public final String repoUrl = "https://github.com/abrillo2/ninjaStore";
-    public final String accessToken = "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";
+    public final String accessToken = "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";
    
     
     //selected files count
@@ -229,6 +231,40 @@ public class UpdateXMLDistributorGui extends JPanel{
             return pannelCont;
     }
     
+    //create ui for scrapping big buy data
+    public JPanel createScrappUiBigBuy(){
+        
+            JPanel pannelCont = new JPanel(); 
+            JPanel pannel = new JPanel();
+            //input label
+            JLabel lableInput = new JLabel("Select A Folder Containing BIG BUY product EXCEL");
+            
+            JTextField tInput = new JTextField(16);
+            tInput.setEnabled(false);
+            JButton buttonInput = new JButton("Select");
+            
+            
+            
+            JButton buttonProcess = new JButton("Start Processing");
+            buttonProcess.setEnabled(false);
+            buttonProcess.addActionListener(e -> processButtonPressed(buttonProcess,4));
+            
+            buttonInput.addActionListener(e -> scrappBigBuyButtonPressed(tInput,buttonProcess));
+            
+            
+            
+            pannel.add(tInput);
+            pannel.add(buttonInput);
+            
+            pannelCont.setLayout(new BoxLayout(pannelCont, BoxLayout.Y_AXIS));
+            pannelCont.add(lableInput);
+            pannelCont.add(pannel);
+            pannelCont.add(buttonProcess);
+            
+            return pannelCont;
+         
+    }
+    
    
     
     
@@ -313,12 +349,18 @@ public class UpdateXMLDistributorGui extends JPanel{
         JPanel scrappSkroutzPanel = new JPanel();
         scrappSkroutzPanel.add(createScrapUi());
         
+        //scrapp big buy panel
+        JPanel scrappBigBuyPanel = new JPanel();
+        scrappBigBuyPanel.add(createScrappUiBigBuy());
+        
+        
         JTabbedPane tp=new JTabbedPane();  
         tp.setBounds(50,50,200,200);  
         tp.add("Update XML - Distributor",inputContainer);  
         tp.add("Update XML - Excel",updateXmlExcelPanel);  
         tp.add("Download XML - Excel",downloadXmlExcelPanel);    
-        tp.add("Scrap Skroutz - Excel",scrappSkroutzPanel);    
+        tp.add("Scrap Skroutz - Excel",scrappSkroutzPanel);   
+        tp.add("Process Big Buy Data",scrappBigBuyPanel);   
         
         
         
@@ -434,7 +476,11 @@ public class UpdateXMLDistributorGui extends JPanel{
                                         break;
                                      case 3:
                                         scrapData();
-                                        
+                                        break;
+                                     case 4:
+                                         ScrapBigBuy();
+                                         break;
+                                     default:  
                                         break;
                                 }
                             }catch(Exception e){
@@ -533,6 +579,30 @@ public class UpdateXMLDistributorGui extends JPanel{
         }
     }
     
+    
+    private void scrappBigBuyButtonPressed(JTextField tInput, JButton buttonProcess) {
+        FileNameExtensionFilter filter = null;
+        JFileChooser jFileInputChooser = new JFileChooser(mainDir);
+        jFileInputChooser.setAcceptAllFileFilterUsed(false);
+        
+        jFileInputChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        
+        int fileInput = jFileInputChooser.showOpenDialog(this);
+        if (fileInput == JFileChooser.APPROVE_OPTION){
+            buttonProcess.setEnabled(true);
+            String inputPath = jFileInputChooser.getSelectedFile().getAbsolutePath();
+            tInput.setText(inputPath);
+            
+            sracpBigBuyFilePath = inputPath;
+            
+            File file = new File(inputPath);
+            String parent = file.getParent();
+            mainDir =  parent;
+                    
+            
+        }
+    }
+    
     public void updateXMLFeedDistributor() throws GitAPIException, IOException, URISyntaxException, TransformerConfigurationException, InterruptedException, CustomException{
                                 /**
                              * 
@@ -588,7 +658,16 @@ public class UpdateXMLDistributorGui extends JPanel{
    
    }
    
-   private void downloadProductExcel() {
+   private void downloadProductExcel() throws GitAPIException, IOException {
+       
+                                    /**
+                             * 
+                             * Clone Repo 
+                             */
+                            String repoDir = docFolder + "/ninjaStoreRepo";
+                            UpdateGitRepo ugr = new UpdateGitRepo(repoDir,repoUrl,accessToken);
+                            ugr.cloneRepo();
+       
        
        String[] productDomKey = {"product"};
         
@@ -632,5 +711,9 @@ public class UpdateXMLDistributorGui extends JPanel{
          for(JTextField JTF:tInputList){
              JTF.setText("");
          }   
+    }
+    
+    private void ScrapBigBuy() throws IOException {
+        scrapAllTargetList(sracpBigBuyFilePath,chromeDriverFolder+"/chromedriver");
     }
 }

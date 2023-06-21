@@ -22,8 +22,8 @@ public class SeleniumHelper{
 	
 	
 	//local fields 
-	String formUrl;
-	WebDriver driver;
+	public String formUrl;
+	public WebDriver driver;
 	
 	//constructor
 	public SeleniumHelper(String chromeDriver) {

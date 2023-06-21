@@ -8,12 +8,12 @@ import com.skroutz.ninjastore.utils.ExcelReader;
 import com.skroutz.ninjastore.utils.ExcelWriter;
 import gui.UpdateXMLDistributorGui;
 import static gui.UpdateXMLDistributorGui.docFolder;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +23,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -38,8 +37,8 @@ import xml.CreteNinJaXMLFeed;
 public class ScrapSkroutz implements Runnable{
     
     
-    public static List<Map<String,String>> scrappedProductList = new ArrayList<>();
-    public static List<Map<String,String>> skippedProductList = new ArrayList<>();
+    public static List<Map<String,String>> scrappedProductList = Collections.synchronizedList(new ArrayList<>());
+    public static List<Map<String,String>> skippedProductList = Collections.synchronizedList(new ArrayList<>());
     public static int totalNumberOfProducts = 0;
    
     

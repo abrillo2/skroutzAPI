@@ -1,6 +1,6 @@
 /Users/abraham/NetBeansProjects/NinjaStore/src/main/java/scrapData/ScrapSkroutz.java
+/Users/abraham/NetBeansProjects/NinjaStore/src/main/java/prepareBigBuy/ParseBigBuyXML.java
 /Users/abraham/NetBeansProjects/NinjaStore/src/main/java/gui/MainGui.java
-/Users/abraham/NetBeansProjects/NinjaStore/src/main/java/scrapData/ScrapSkroutz1.java
 /Users/abraham/NetBeansProjects/NinjaStore/src/main/java/com/skroutz/ninjastore/utils/SaxHandler.java
 /Users/abraham/NetBeansProjects/NinjaStore/src/main/java/xml/skroutzXMLFeed.java
 /Users/abraham/NetBeansProjects/NinjaStore/src/main/java/gui/UpdateXMLDistributorGui.java
@@ -9,6 +9,7 @@
 /Users/abraham/NetBeansProjects/NinjaStore/src/main/java/com/skroutz/ninjastore/utils/ExcelWriter.java
 /Users/abraham/NetBeansProjects/NinjaStore/src/main/java/xml/SaxHandlerModel.java
 /Users/abraham/NetBeansProjects/NinjaStore/src/main/java/com/skroutz/ninjastore/utils/ExcelReader.java
+/Users/abraham/NetBeansProjects/NinjaStore/src/main/java/prepareBigBuy/ScrapBigBuy.java
 /Users/abraham/NetBeansProjects/NinjaStore/src/main/java/com/skroutz/ninjastore/utils/HelperClass.java
 /Users/abraham/NetBeansProjects/NinjaStore/src/main/java/scrapData/InitSelenium.java
 /Users/abraham/NetBeansProjects/NinjaStore/src/main/java/com/skroutz/ninjastore/NinjaStore.java

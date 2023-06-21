@@ -4,6 +4,7 @@ package git;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+import com.skroutz.ninjastore.utils.HelperClass;
 import gui.UpdateXMLDistributorGui;
 import java.io.File;
 import java.io.IOException;
@@ -66,6 +67,9 @@ public class UpdateGitRepo {
            
            
             Git git = Git.open(new File(repoDir)); 
+            
+            //create zip of xml
+            HelperClass.zipFile(repoDir+"/productList.zip",repoDir+"/productList.xml");
             
             git.add().addFilepattern(".").call();
             git.commit().setMessage("product list "+new Date()).call();
