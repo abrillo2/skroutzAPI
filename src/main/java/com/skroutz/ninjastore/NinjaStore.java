@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.xml.transform.TransformerConfigurationException;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import prepareBigBuy.ParseBigBuyXML;
+import prepareBigBuy.PrePareBigBuyDistributor;
 import static prepareBigBuy.ScrapBigBuy.scrapAllTargetList;
 
 /**
@@ -51,6 +52,8 @@ public class NinjaStore {
             /*HelperClass.updateAvailableity();*/
             
             /*scrapAllTargetList("/Users/abraham/Downloads/download");*/
+            
+           // PrePareBigBuyDistributor.testBigBuy();
      
 
         

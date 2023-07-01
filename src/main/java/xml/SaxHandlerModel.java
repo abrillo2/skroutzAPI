@@ -27,7 +27,7 @@ public class SaxHandlerModel {
     private String eanKey;
    
     private SAXParser saxParser ;
-    private SaxHandler saxHandler;
+    public SaxHandler saxHandler;
     private String stockKey;
     private String url;
     private String storeName = "";
@@ -67,6 +67,8 @@ public class SaxHandlerModel {
     public void setStockKey(String stockKey) {
         this.stockKey = stockKey;
     }
+    
+    
     
     
     

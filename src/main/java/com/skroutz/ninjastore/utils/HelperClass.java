@@ -36,24 +36,84 @@ public class HelperClass {
         int result = -1; 
         try{
             result = Integer.parseInt(str);
-        }catch(NumberFormatException e){
+        }catch(Exception e){
                           
             try{
                 double strDouble = Double.parseDouble(str);
                 result = (int)strDouble;
                                 
                 
-                }catch(NumberFormatException e2){
-                    System.out.println("Cannot Convert '"+str+"' to integer");
+                }catch(Exception e2){
+                    System.out.println("Cannot Convert '"+str+"' to integer ");
                 }
         }  
         return result;
+    }
+    /***
+     * Convert to Double #for price
+     * @param str
+     * @return 
+     */
+    public static double convertToDouble(String str){
+        double result = -1.00;
+        
+        try{
+             double strDouble = Double.parseDouble(str);
+             result = strDouble;      
+        }catch(Exception e2){
+             System.out.println("Cannot Convert '"+str+"' to Double");
+        }
+        
+        return result;
+    }
+    /**
+     * Generate Price for products from distributor
+     * @param disPrice
+     * @param NSprice
+     * @param category
+     * @param percentages 
+     * @return  
+     */
+    public static String[] generateProductPrice(String disPrice,String NSprice,String category,List<Map<String,String>> percentages){
+            
+        double disPriceConverted = convertToDouble(disPrice);
+        
+        
+        //loop through percentage list to locate product category
+        for(Map<String, String> percentage:percentages){
+            String categoryPercentage = percentage.get("category");
+            if(categoryPercentage == null) continue;
+            
+            if(category.toLowerCase().contains(categoryPercentage.toLowerCase().strip())){
+                    
+                String categoryRate = percentage.get("rate");
+                if(categoryRate == null) continue;
+                
+                double categoryRateConverted = convertToDouble(categoryRate);
+                
+                //check if nesesarry values are succesfully converted to doulbe
+                
+                if((disPriceConverted == -1.00) | (categoryRateConverted == -1.00)){
+                       return  new String[]{NSprice,"NO"};
+                }else{
+                       double computedDisPrice = disPriceConverted+(disPriceConverted *(categoryRateConverted/100.0));
+                       return new String[]{computedDisPrice+"","YES"};
+                }
+                
+                
+            }
+        
+        }
+        return  new String[]{NSprice,"NO"};
+        
     }
     
     /****
      * 
      * Get ean from product list 
      * 
+     * @param data
+     * @return 
      */
     public static List<String> getEanList(List<Map<String, String>> data){
         List<String> eanList = new ArrayList<>();
@@ -197,5 +257,7 @@ public class HelperClass {
         fis.close();
         fos.close();
     }
+    
+    
     
 }

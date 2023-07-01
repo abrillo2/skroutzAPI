@@ -66,7 +66,7 @@ public class UpdateGitRepo {
     public void pushToRepo() throws IOException, URISyntaxException, GitAPIException{
            
            
-            Git git = Git.open(new File(repoDir)); 
+           Git git = Git.open(new File(repoDir)); 
             
             //create zip of xml
             HelperClass.zipFile(repoDir+"/productList.zip",repoDir+"/productList.xml");

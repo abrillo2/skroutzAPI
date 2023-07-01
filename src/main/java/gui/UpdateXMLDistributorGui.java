@@ -59,6 +59,7 @@ public class UpdateXMLDistributorGui extends JPanel{
     public  String wwtFilePath;
     public  String xtgFilePath;
     public  String mobiFilePath;
+    public String bigbuyFilePath;
     
     public static String chromeDriverFolder;
     public static String mainDir;
@@ -71,9 +72,9 @@ public class UpdateXMLDistributorGui extends JPanel{
     public static String docFolder;
     
     //input labels
-    public final String[] inputKeys = {"Select WWT distributor xml","Select Mobiparts distributor Excel file","Select XTG Excel"};
+    public final String[] inputKeys = {"Select WWT distributor xml","Select Mobiparts distributor Excel file","Select XTG Excel","Select BIGBUY Folder"};
     public final String repoUrl = "https://github.com/abrillo2/ninjaStore";
-    public final String accessToken = "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";
+    public final String accessToken = "";
    
     
     //selected files count
@@ -389,9 +390,16 @@ public class UpdateXMLDistributorGui extends JPanel{
 	}else if(key.equalsIgnoreCase(inputKeys[2])){
             filter = new FileNameExtensionFilter("Excel Files", "xlsx"); 
             labelIndex = 2;
+        }else if(key.equalsIgnoreCase(inputKeys[3])){
+            filter = null;
+            labelIndex = 3;
         }
         
-        jFileInputChooser.addChoosableFileFilter(filter);
+        if(filter != null){
+            jFileInputChooser.addChoosableFileFilter(filter);
+        }else{
+            jFileInputChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        }
         
         int fileInput = jFileInputChooser.showOpenDialog(this);
         if (fileInput == JFileChooser.APPROVE_OPTION){
@@ -412,7 +420,9 @@ public class UpdateXMLDistributorGui extends JPanel{
                 case 2:
                     xtgFilePath = inputPath;
                     break;
-                                        
+                case 3:
+                    bigbuyFilePath = inputPath;
+                    break;
                 default:
                     break;
             }
@@ -616,7 +626,7 @@ public class UpdateXMLDistributorGui extends JPanel{
                             /**
                              * read distributor product list
                              */
-                            PrepareDistributorData pdd = new PrepareDistributorData(xtgFilePath,wwtFilePath,mobiFilePath);
+                            PrepareDistributorData pdd = new PrepareDistributorData(xtgFilePath,wwtFilePath,mobiFilePath,bigbuyFilePath);
                             pdd.setAllData();
                             pdd.updateProductStock();
                             
@@ -714,6 +724,6 @@ public class UpdateXMLDistributorGui extends JPanel{
     }
     
     private void ScrapBigBuy() throws IOException {
-        scrapAllTargetList(sracpBigBuyFilePath,chromeDriverFolder+"/chromedriver");
+        scrapAllTargetList(sracpBigBuyFilePath,chromeDriverFolder+"/chromedriver.exe");
     }
 }

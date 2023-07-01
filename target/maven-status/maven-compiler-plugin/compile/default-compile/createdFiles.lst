@@ -21,5 +21,6 @@ scrapData/SeleniumHelper.class
 scrapData/InitSelenium.class
 gui/MainForm.class
 gui/UpdateXMLDistributorGui.class
+prepareBigBuy/PrePareBigBuyDistributor.class
 com/skroutz/ninjastore/NinjaStore$1.class
 gui/UpdateXMLDistributorGui$1.class

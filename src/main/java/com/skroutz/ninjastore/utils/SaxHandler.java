@@ -25,10 +25,10 @@ public class SaxHandler extends DefaultHandler {
     private  String[] productDomKey;
     private  boolean extractAll;
     
-    public static String[] priceKeys = {"price","sprzedaz"};
-    public static String[] mpnKeys = {"mpn","reference"};
-    List<String> priceKeysList=Arrays.asList(priceKeys);
-    List<String> mpnKeyList=Arrays.asList(mpnKeys);
+    private String[] priceKeys = {"price","sprzedaz"};
+    private String[] mpnKeys = {"mpn","reference"};
+    private List<String> priceKeysList=Arrays.asList(priceKeys);
+    private List<String> mpnKeyList=Arrays.asList(mpnKeys);
     private String storeName = "";
 
     
@@ -41,6 +41,16 @@ public class SaxHandler extends DefaultHandler {
         this.extractAll = extractAll;
         this.storeName = storeName;
         
+    }
+    
+    public void setPriceandMpnKeys(String[] priceKeys, String[] mpnKeys){
+        
+       this.priceKeys = priceKeys;
+       this.mpnKeys = mpnKeys;
+       
+       priceKeysList=Arrays.asList(this.priceKeys);
+       mpnKeyList= Arrays.asList(this.mpnKeys);
+    
     }
     public SaxHandler(String[] productDomKey, boolean extractAll,String storeName) {
         this.productDomKey = productDomKey;
@@ -166,7 +176,7 @@ public class SaxHandler extends DefaultHandler {
                 
                 }else if (qName.equalsIgnoreCase(eanKey)) {
 
-                      currentUpdateList.put(eanKey, currenVal);
+                      currentUpdateList.put("ean", currenVal);
 
                       eanFound = eans.contains(currenVal); 
 
